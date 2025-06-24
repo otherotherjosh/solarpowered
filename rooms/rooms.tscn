@@ -1,14 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvh7pko3vycvx"]
+[gd_scene load_steps=5 format=3 uid="uid://dvh7pko3vycvx"]
 
 [ext_resource type="PackedScene" uid="uid://bmyw0nv03xt3e" path="res://rooms/Room Selections/starter_room.tscn" id="1_sf5s2"]
 [ext_resource type="PackedScene" uid="uid://dmv4m2y1qg8yb" path="res://player/character_body_2d.tscn" id="1_sirhp"]
+[ext_resource type="Script" uid="uid://cpujcitvusvwp" path="res://rooms/room_manager.gd" id="2_sf5s2"]
+[ext_resource type="PackedScene" uid="uid://dgiq2i7ul6qbc" path="res://rooms/Room Selections/roomlayoutone.tscn" id="4_d58nj"]
 
 [node name="Rooms" type="Node2D"]
 
-[node name="Starter Room" parent="." instance=ExtResource("1_sf5s2")]
-scale = Vector2(10, 10)
-
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_sirhp")]
+position = Vector2(369, 270)
 motion_mode = 1
 acceleration = 9.114
 deceleration = 7.09
+
+[node name="RoomManager" type="Node2D" parent="."]
+script = ExtResource("2_sf5s2")
+rooms = Array[PackedScene]([ExtResource("1_sf5s2"), ExtResource("4_d58nj")])
