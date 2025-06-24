@@ -1,4 +1,4 @@
-extends Control
+class_name Menu extends Control
 
 
 func _on_play_button_down() -> void:

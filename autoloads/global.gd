@@ -11,7 +11,7 @@ enum State {
 signal on_state_changed(new_state: State)
 
 const ROOMS_SCENE := "res://rooms/rooms.tscn"
-const MENU_SCENE := "res://menus/menu.tscn"
+const MENU_SCENE := "res://menus/main_menu.tscn"
 const PAUSE_SCENE := "res://menus/pause.tscn"
 
 var state: State:
@@ -45,10 +45,6 @@ func play_level() -> void:
 func main_menu() -> void:
 	get_tree().change_scene_to_file(MENU_SCENE)
 	state = State.MAIN_MENU
-
-
-func pause() -> void:
-	state = State.PAUSED
 
 
 func _set_state(value: State) -> void:

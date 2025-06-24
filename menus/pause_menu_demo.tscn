@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6f1i1ma2546j"]
-
-[ext_resource type="PackedScene" uid="uid://dmv4m2y1qg8yb" path="res://player/character_body_2d.tscn" id="1_ivypp"]
-
-[node name="PauseMenuDemo" type="Node2D"]
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_ivypp")]
