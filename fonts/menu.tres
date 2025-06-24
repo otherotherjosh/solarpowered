@@ -1,7 +1,8 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://cux5de8w7nm53"]
 
-[ext_resource type="FontFile" uid="uid://i617wyjv82ag" path="res://fonts/ZCOOLXiaoWei-Regular.ttf" id="1_mowgd"]
+[ext_resource type="FontFile" uid="uid://i617wyjv82ag" path="res://fonts/ZCOOLXiaoWei-Regular.ttf" id="1_mjdsh"]
 
 [resource]
-default_font = ExtResource("1_mowgd")
+default_font = ExtResource("1_mjdsh")
+Button/font_sizes/font_size = 40
 Label/font_sizes/font_size = 100

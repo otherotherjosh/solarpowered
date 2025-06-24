@@ -19,7 +19,7 @@ var state: State:
 
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	main_menu()
 	
 		
@@ -37,7 +37,7 @@ func handle_ui_cancel() -> void:
 			state = State.PAUSED
 
 
-func play_level(assignment: int) -> void:
+func play_level() -> void:
 	get_tree().change_scene_to_file(ROOMS_SCENE)
 	state = State.PLAYING
 	
