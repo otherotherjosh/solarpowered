@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cux5de8w7nm53"]
+
+[ext_resource type="FontFile" uid="uid://i617wyjv82ag" path="res://fonts/ZCOOLXiaoWei-Regular.ttf" id="1_mowgd"]
+
+[resource]
+default_font = ExtResource("1_mowgd")
+Label/font_sizes/font_size = 100
