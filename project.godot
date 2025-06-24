@@ -14,6 +14,10 @@ config/name="Solar Powered Game Jam"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://autoloads/scene_loader.gd"
+
 [input]
 
 move_up={
