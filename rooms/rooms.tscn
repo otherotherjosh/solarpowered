@@ -9,4 +9,6 @@
 scale = Vector2(10, 10)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_sirhp")]
-position = Vector2(280, 252)
+motion_mode = 1
+acceleration = 9.114
+deceleration = 7.09
