@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+class_name RoomGenerator extends Node2D
 
 
 const TOP_LEFT_TILE := Vector2i(0, 0)
@@ -12,12 +12,11 @@ const BOTTOM_LEFT_TILE := Vector2i(0, 2)
 const BOTTOM_CENTER_TILE := Vector2i(1, 2)
 const BOTTOM_RIGHT_TILE := Vector2i(2, 2)
 
-@export var generate_room: bool:
-	set = _set_generate_room
 @onready var tile_map_layer: TileMapLayer = $TileMapLayer
-@export var max_room_size := Vector2i(27, 21)
 @export var square_min_size := 3
 @export var square_max_size := 10
+@export var squares_min := 3
+@export var squares_max := 15
 
 
 ## generates a room
@@ -102,13 +101,6 @@ func set_cell_atlas_coords(x: int, y: int, square: Square) -> Vector2i:
 			return BOTTOM_RIGHT_TILE
 		_:
 			return MIDDLE_CENTER_TILE
-				
-
-
-func _set_generate_room(value: bool) -> void:
-	if value:
-		handle_generate_room()
-	generate_room = false
 
 
 ## its a square
