@@ -28,6 +28,7 @@ func generate_room(coords: Vector2i, exits_tlbr: Array[int] = []) -> Room:
 	var room := ROOM.instantiate() as Room
 	if exits_tlbr.size() == 0:
 		exits_tlbr = generate_exits_tlbr(coords)
+	add_child(room)
 	room.exits_tlbr = exits_tlbr
 	room.tile_map_layer.clear()
 	var square_count := randi_range(squares_min, squares_max)

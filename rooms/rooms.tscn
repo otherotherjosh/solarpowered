@@ -23,7 +23,6 @@ script = ExtResource("2_sf5s2")
 script = ExtResource("7_ny041")
 square_max_size = 6
 squares_max = 30
-exit_spawn_chance = null
 
 [node name="Player" parent="." instance=ExtResource("1_sirhp")]
 position = Vector2(225, -94)
