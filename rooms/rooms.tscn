@@ -26,6 +26,6 @@ square_max_size = 6
 squares_max = 30
 
 [node name="Player" parent="." instance=ExtResource("1_sirhp")]
-position = Vector2(211, 166)
+position = Vector2(225, -94)
 
 [node name="PlayerCamera" parent="Player" instance=ExtResource("5_4vlth")]

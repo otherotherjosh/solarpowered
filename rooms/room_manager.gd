@@ -14,7 +14,7 @@ var directions := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
 
 func _ready():
-	room_generator.generate_room()
+	room_generator.generate_room([1, 0, 0, 1])
 
 
 func generate_rooms(count: int):
