@@ -15,7 +15,8 @@ func _set_generate_room(value: bool) -> void:
 		print("room generator not found!")
 		return
 	if value:
-		room_generator.generate_room()
+		clear_room = true
+		room_generator.generate_room([1, 1, 1, 1])
 
 
 func _set_clear_room(value: bool) -> void:
@@ -23,5 +24,5 @@ func _set_clear_room(value: bool) -> void:
 	if not room_generator:
 		print("room generator not found!")
 		return
-	if value:
-		room_generator.tile_map_layer.clear()
+	for child in room_generator.get_children():
+		child.queue_free()
