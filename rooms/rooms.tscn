@@ -1,18 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://dvh7pko3vycvx"]
 
-[ext_resource type="PackedScene" uid="uid://bmyw0nv03xt3e" path="res://rooms/Room Selections/starter_room.tscn" id="1_sf5s2"]
+[ext_resource type="PackedScene" uid="uid://bmyw0nv03xt3e" path="res://rooms/Room Selections/spawn_room.tscn" id="1_sf5s2"]
 [ext_resource type="PackedScene" uid="uid://dmv4m2y1qg8yb" path="res://player/character_body_2d.tscn" id="1_sirhp"]
 [ext_resource type="Script" uid="uid://cpujcitvusvwp" path="res://rooms/room_manager.gd" id="2_sf5s2"]
-[ext_resource type="PackedScene" uid="uid://dgiq2i7ul6qbc" path="res://rooms/Room Selections/roomlayoutone.tscn" id="4_d58nj"]
+[ext_resource type="PackedScene" uid="uid://c3qngtwsihryf" path="res://rooms/Room Selections/room_1.tscn" id="3_w823o"]
 
 [node name="Rooms" type="Node2D"]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_sirhp")]
-position = Vector2(369, 270)
-motion_mode = 1
-acceleration = 9.114
-deceleration = 7.09
-
 [node name="RoomManager" type="Node2D" parent="."]
 script = ExtResource("2_sf5s2")
-rooms = Array[PackedScene]([ExtResource("1_sf5s2"), ExtResource("4_d58nj")])
+room_scenes = Array[PackedScene]([ExtResource("3_w823o"), ExtResource("1_sf5s2")])
+player_scene = ExtResource("1_sirhp")
