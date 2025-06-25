@@ -16,7 +16,7 @@ func _set_generate_room(value: bool) -> void:
 		return
 	if value:
 		clear_room = true
-		room_generator.generate_room([1, 1, 1, 1])
+		room_generator.generate_room(Vector2i.ZERO, [1, 1, 1, 1])
 
 
 func _set_clear_room(value: bool) -> void:

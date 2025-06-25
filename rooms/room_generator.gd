@@ -12,24 +12,48 @@ const BOTTOM_LEFT_TILE := Vector2i(0, 2)
 const BOTTOM_CENTER_TILE := Vector2i(1, 2)
 const BOTTOM_RIGHT_TILE := Vector2i(2, 2)
 const ROOM = preload("res://rooms/room.tscn")
+const EXIT = preload("res://rooms/exit.tscn")
 
 @export var square_min_size := 3
 @export var square_max_size := 10
 @export var squares_min := 3
 @export var squares_max := 15
+@export_range(0, 1) var exit_spawn_chance := 0.5
+
+@onready var room_manager: RoomManager = %RoomManager
 
 
 ## generates a room
-func generate_room(exits_tlbr: Array[int]) -> void:
+func generate_room(coords: Vector2i, exits_tlbr: Array[int] = []) -> Room:
 	var room := ROOM.instantiate() as Room
-	add_child(room)
+	if exits_tlbr.size() == 0:
+		exits_tlbr = generate_exits_tlbr(coords)
 	room.exits_tlbr = exits_tlbr
 	room.tile_map_layer.clear()
 	var square_count := randi_range(squares_min, squares_max)
 	generate_square_floor(square_count, room)
 	var cells := room.tile_map_layer.get_used_cells()
 	generate_walls(cells, room)
+	return room
+
+
+func generate_exits_tlbr(coords: Vector2i) -> Array[int]:
+	var exits_tlbr := [0, 0, 0, 0]
+	for i in range(4):
+		var neighbor_coords := coords + room_manager.directions[i]
+		# generate mandatory exits 
+		# i.e. there is already a room in that direction with a corresponding entrance
+		if room_manager.rooms.has(neighbor_coords):
+			var neighbor: Room = room_manager.rooms[neighbor_coords]
+			# generate exit on opposite side of neighbor exit
+			exits_tlbr[i] = neighbor.exits_tlbr[(i + 2) % 4]
+		# generate random exit, leading to a yet to be generated room
+		else:
+			exits_tlbr[i] = (randf() <= exit_spawn_chance) as int
+	return exits_tlbr
+		
 	
+
 
 ## lays down a bunch of squares as MIDDLE_CENTER_TILE
 func generate_square_floor(square_count: int, room: Room) -> void:
