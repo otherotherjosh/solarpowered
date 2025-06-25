@@ -9,8 +9,8 @@ radius = 65.0692
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_fui21")
-acceleration = 9.0
-deceleration = 7.0
+acceleration = 8.0
+deceleration = 6.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ylu1k")

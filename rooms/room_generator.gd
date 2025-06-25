@@ -22,8 +22,14 @@ const BOTTOM_RIGHT_TILE := Vector2i(2, 2)
 ## generates a room
 func generate_room() -> void:
 	tile_map_layer.clear()
+	var square_count := randi_range(squares_min, squares_max)
+	generate_square_floor(square_count)
+	var cells := tile_map_layer.get_used_cells()
+	generate_walls(cells)
 	
-	var square_count := randi_range(5, 10)
+
+## lays down a bunch of squares as MIDDLE_CENTER_TILE
+func generate_square_floor(square_count) -> void:
 	var squares: Array[Square]
 	for i in range(square_count):
 		var size := Vector2i(
@@ -45,8 +51,8 @@ func get_random_square_position(squares: Array[Square], size: Vector2i) -> Vecto
 	var offset_x: int = randi_range(0, 1) * -size.x
 	var offset_y: int = randi_range(0, 1) * -size.y
 	return Vector2i(
-			randi_range(square.top_left.x + 3, square.bottom_right.x - 3) + offset_x,
-			randi_range(square.top_left.y + 3, square.bottom_right.y - 3) + offset_y
+			randi_range(square.top_left.x + 1, square.bottom_right.x - 1) + offset_x,
+			randi_range(square.top_left.y + 1, square.bottom_right.y - 1) + offset_y
 	)
 
 
@@ -54,53 +60,38 @@ func get_random_square_position(squares: Array[Square], size: Vector2i) -> Vecto
 func tile_square(square: Square) -> void:
 	for x in range(square.top_left.x, square.bottom_right.x + 1):
 		for y in range(square.top_left.y, square.bottom_right.y + 1):
-			var coords := Vector2i(x, y)
-			var atlas_coords := set_cell_atlas_coords(x, y, square)
-			tile_map_layer.set_cell(coords, 1, atlas_coords)
+			tile_map_layer.set_cell(Vector2i(x, y), 1, MIDDLE_CENTER_TILE)
+			
+			#var atlas_coords := set_cell_atlas_coords(x, y, square)
 			
 
-## returns the tile atlas coords for a cell based on the cells around it
-func set_cell_atlas_coords(x: int, y: int, square: Square) -> Vector2i:
-	# set all non border tiles to floor type
-	if (x > square.top_left.x and x < square.bottom_right.x and
-			y > square.top_left.y and y < square.bottom_right.y):
-		return MIDDLE_CENTER_TILE
-	
-	# top, left, bottom, right
-	var taken_cells_tlbr := [1, 1, 1, 1]
-	
-	if x == square.top_left.x:
-		taken_cells_tlbr[1] = tile_map_layer.get_cell_atlas_coords(
-				Vector2i(x - 1, y)) != Vector2i(-1, -1) as int
-	if x == square.bottom_right.x:
-		taken_cells_tlbr[3] = tile_map_layer.get_cell_atlas_coords(
-				Vector2i(x + 1, y)) != Vector2i(-1, -1) as int
-	if y == square.top_left.y:
-		taken_cells_tlbr[0] = tile_map_layer.get_cell_atlas_coords(
-				Vector2i(x, y - 1)) != Vector2i(-1, -1) as int
-	if y == square.bottom_right.y:
-		taken_cells_tlbr[2] = tile_map_layer.get_cell_atlas_coords(
-				Vector2i(x, y + 1)) != Vector2i(-1, -1) as int
-	
-	match taken_cells_tlbr:
-		[0, 0, 1, 1]:
-			return TOP_LEFT_TILE
-		[0, 1, 1, 1]:
-			return TOP_CENTER_TILE
-		[0, 1, 1, 0]:
-			return TOP_RIGHT_TILE
-		[1, 0, 1, 1]:
-			return MIDDLE_LEFT_TILE
-		[1, 1, 1, 0]:
-			return MIDDLE_RIGHT_TILE
-		[1, 0, 0, 1]:
-			return BOTTOM_LEFT_TILE
-		[1, 1, 0, 1]:
-			return BOTTOM_CENTER_TILE
-		[1, 1, 0, 0]:
-			return BOTTOM_RIGHT_TILE
-		_:
-			return MIDDLE_CENTER_TILE
+## sets floor tiles into wall tiles based on neighboring cells
+func generate_walls(cells: Array[Vector2i]) -> void:
+	for cell in cells:
+		var neighbors_tlbr: Array[int] = [0, 0, 0, 0]
+		var directions_tlbr := [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
+		for i in range(4):
+			neighbors_tlbr[i] = (cells.has(cell + directions_tlbr[i])) as int
+			
+		match neighbors_tlbr:
+			[0, 0, 1, 1]:
+				tile_map_layer.set_cell(cell, 1, TOP_LEFT_TILE)
+			[0, 1, 1, 1]:
+				tile_map_layer.set_cell(cell, 1, TOP_CENTER_TILE)
+			[0, 1, 1, 0]:
+				tile_map_layer.set_cell(cell, 1, TOP_RIGHT_TILE)
+			[1, 0, 1, 1]:
+				tile_map_layer.set_cell(cell, 1, MIDDLE_LEFT_TILE)
+			[1, 1, 1, 0]:
+				tile_map_layer.set_cell(cell, 1, MIDDLE_RIGHT_TILE)
+			[1, 0, 0, 1]:
+				tile_map_layer.set_cell(cell, 1, BOTTOM_LEFT_TILE)
+			[1, 1, 0, 1]:
+				tile_map_layer.set_cell(cell, 1, BOTTOM_CENTER_TILE)
+			[1, 1, 0, 0]:
+				tile_map_layer.set_cell(cell, 1, BOTTOM_RIGHT_TILE)
+			_:
+				tile_map_layer.set_cell(cell, 1, MIDDLE_CENTER_TILE)
 
 
 ## its a square
