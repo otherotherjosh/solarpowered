@@ -42,12 +42,12 @@ func handle_generate_room() -> void:
 func get_random_square_position(squares: Array[Square], size: Vector2i) -> Vector2i:
 	if squares.size() == 0:
 		return Vector2i(0, 0)
-	var square := squares[randi_range(2, squares.size() - 3)]
+	var square := squares[randi_range(0, squares.size() - 1)]
 	var offset_x: int = randi_range(0, 1) * -size.x
 	var offset_y: int = randi_range(0, 1) * -size.y
 	return Vector2i(
-			randi_range(square.top_left.x, square.bottom_right.x) + offset_x,
-			randi_range(square.top_left.y, square.bottom_right.y) + offset_y
+			randi_range(square.top_left.x + 3, square.bottom_right.x - 3) + offset_x,
+			randi_range(square.top_left.y + 3, square.bottom_right.y - 3) + offset_y
 	)
 
 
@@ -56,22 +56,52 @@ func tile_square(square: Square) -> void:
 	for x in range(square.top_left.x, square.bottom_right.x + 1):
 		for y in range(square.top_left.y, square.bottom_right.y + 1):
 			var coords := Vector2i(x, y)
-			var atlas_coords := get_tilemap_atlas_coords(coords, square)
+			var atlas_coords := set_cell_atlas_coords(x, y, square)
 			tile_map_layer.set_cell(coords, 1, atlas_coords)
 			
 
 ## returns the tile atlas coords for a cell based on the cells around it
-func get_tilemap_atlas_coords(coords: Vector2i, square: Square) -> Vector2i:
-	#if (
-			#coords.x > square.top_left.x and coords.x < square.bottom_right.x and
-			#coords.y > square.top_left.y and coords.y < square.bottom_right.y
-	#): # set all non border tiles to floor type
-		#return MIDDLE_CENTER_TILE
+func set_cell_atlas_coords(x: int, y: int, square: Square) -> Vector2i:
+	# set all non border tiles to floor type
+	if (x > square.top_left.x and x < square.bottom_right.x and
+			y > square.top_left.y and y < square.bottom_right.y):
+		return MIDDLE_CENTER_TILE
 	
-	# handle left hand side
-	#if coords.x == square.top_left.x
+	# top, left, bottom, right
+	var taken_cells_tlbr := [1, 1, 1, 1]
 	
-	return MIDDLE_CENTER_TILE
+	if x == square.top_left.x:
+		taken_cells_tlbr[1] = tile_map_layer.get_cell_atlas_coords(
+				Vector2i(x - 1, y)) != Vector2i(-1, -1) as int
+	if x == square.bottom_right.x:
+		taken_cells_tlbr[3] = tile_map_layer.get_cell_atlas_coords(
+				Vector2i(x + 1, y)) != Vector2i(-1, -1) as int
+	if y == square.top_left.y:
+		taken_cells_tlbr[0] = tile_map_layer.get_cell_atlas_coords(
+				Vector2i(x, y - 1)) != Vector2i(-1, -1) as int
+	if y == square.bottom_right.y:
+		taken_cells_tlbr[2] = tile_map_layer.get_cell_atlas_coords(
+				Vector2i(x, y + 1)) != Vector2i(-1, -1) as int
+	
+	match taken_cells_tlbr:
+		[0, 0, 1, 1]:
+			return TOP_LEFT_TILE
+		[0, 1, 1, 1]:
+			return TOP_CENTER_TILE
+		[0, 1, 1, 0]:
+			return TOP_RIGHT_TILE
+		[1, 0, 1, 1]:
+			return MIDDLE_LEFT_TILE
+		[1, 1, 1, 0]:
+			return MIDDLE_RIGHT_TILE
+		[1, 0, 0, 1]:
+			return BOTTOM_LEFT_TILE
+		[1, 1, 0, 1]:
+			return BOTTOM_CENTER_TILE
+		[1, 1, 0, 0]:
+			return BOTTOM_RIGHT_TILE
+		_:
+			return MIDDLE_CENTER_TILE
 				
 
 
