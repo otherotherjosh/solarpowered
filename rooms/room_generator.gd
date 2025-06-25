@@ -20,7 +20,7 @@ const BOTTOM_RIGHT_TILE := Vector2i(2, 2)
 
 
 ## generates a room
-func handle_generate_room() -> void:
+func generate_room() -> void:
 	tile_map_layer.clear()
 	
 	var square_count := randi_range(5, 10)

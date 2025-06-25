@@ -6,16 +6,15 @@ extends Node2D
 @export var max_rooms: int = 0
 @export var room_size: Vector2 = Vector2(320, 180)
 
-@export var room_selection: Array[Room]
-
 var player
 var room_grid := {}
 var directions := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
+@onready var room_generator: RoomGenerator = $RoomGenerator
+
 
 func _ready():
-	#generate_rooms(max_rooms)
-	pass
+	room_generator.generate_room()
 
 
 func generate_rooms(count: int):

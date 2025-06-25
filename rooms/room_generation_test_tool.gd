@@ -15,7 +15,7 @@ func _set_generate_room(value: bool) -> void:
 		print("room generator not found!")
 		return
 	if value:
-		room_generator.handle_generate_room()
+		room_generator.generate_room()
 
 
 func _set_clear_room(value: bool) -> void:
