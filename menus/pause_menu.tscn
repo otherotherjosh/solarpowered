@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://x8jmis22lkyk"]
+
+[ext_resource type="Script" uid="uid://buywng4fbwqfd" path="res://menus/pause_menu.gd" id="1_p1qj3"]
+[ext_resource type="Theme" uid="uid://cux5de8w7nm53" path="res://fonts/menu.tres" id="1_s0u37"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p1qj3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.494118)
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.0546875
+anchor_top = 0.5
+anchor_right = 0.0546875
+anchor_bottom = 0.5
+offset_left = 79.0
+offset_right = 79.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Restart" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -134.0
+offset_right = 39.5
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_s0u37")
+text = "restart"
+
+[node name="Options" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -15.5
+offset_right = 33.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_s0u37")
+text = "options"
+
+[node name="Quit" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = 89.0
+offset_right = 37.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_s0u37")
+text = "quit"
+
+[connection signal="button_down" from="Buttons/Restart" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Buttons/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="Buttons/Quit" to="." method="_on_quit_button_down"]

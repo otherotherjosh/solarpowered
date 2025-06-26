@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvh7pko3vycvx"]
+
+[ext_resource type="PackedScene" uid="uid://x8jmis22lkyk" path="res://menus/pause_menu.tscn" id="1_sf5s2"]
+[ext_resource type="PackedScene" uid="uid://dmv4m2y1qg8yb" path="res://player/character_body_2d.tscn" id="1_sirhp"]
+
+[node name="Rooms" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("1_sf5s2")]
+visible = false
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_sirhp")]
+motion_mode = 1
+acceleration = 9.114
+deceleration = 7.09

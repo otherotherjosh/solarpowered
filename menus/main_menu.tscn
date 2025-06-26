@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjobihk7lot5n"]
+
+[ext_resource type="Texture2D" uid="uid://d03hw8t862wn" path="res://menus/pexels-pixabay-356036.jpg" id="1_8gy84"]
+[ext_resource type="Script" uid="uid://v5dfslgm1dig" path="res://menus/main_menu.gd" id="1_yjgyn"]
+[ext_resource type="Theme" uid="uid://cux5de8w7nm53" path="res://fonts/menu.tres" id="2_ij7vn"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yjgyn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8gy84")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0269097
+anchor_top = 0.0447531
+anchor_right = 0.0269097
+anchor_bottom = 0.0447531
+offset_left = 1.0
+offset_top = -18.0
+offset_right = 632.0
+offset_bottom = 82.0
+theme = ExtResource("2_ij7vn")
+text = "a solar mistake"
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.0546875
+anchor_top = 0.5
+anchor_right = 0.0546875
+anchor_bottom = 0.5
+offset_left = 79.0
+offset_right = 79.0
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Play" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.5
+offset_top = -134.0
+offset_right = 39.5
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ij7vn")
+text = "play"
+
+[node name="Options" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -15.5
+offset_right = 33.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ij7vn")
+text = "options"
+
+[node name="Quit" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = 89.0
+offset_right = 37.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ij7vn")
+text = "quit"
+
+[connection signal="button_down" from="Buttons/Play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Buttons/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="Buttons/Quit" to="." method="_on_quit_button_down"]
