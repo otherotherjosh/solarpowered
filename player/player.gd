@@ -11,8 +11,7 @@ var curr_speed := 0.0
 func _physics_process(delta: float) -> void:
 	if Global.state == Global.State.PAUSED:
 		return
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# Get the input direction and handle the accesleration/deceleration.
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction:
 		velocity = lerp(velocity, direction * speed, delta * acceleration)
