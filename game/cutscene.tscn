@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c65k1ywce5eko"]
+
+[ext_resource type="Script" uid="uid://kl8lr3da4l3q" path="res://game/cutscene.gd" id="1_xkgdk"]
+[ext_resource type="VideoStream" uid="uid://b6pvxiu3sfbry" path="res://game/anim solar powered.ogv" id="2_aftvj"]
+
+[node name="Cutscene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xkgdk")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0180556
+anchor_right = 1.0
+anchor_bottom = 0.978056
+offset_bottom = -0.200073
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_aftvj")
+volume_db = -80.0
+expand = true
+metadata/_edit_use_anchors_ = true

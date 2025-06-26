@@ -8,7 +8,7 @@ class_name Player extends CharacterBody2D
 var curr_speed := 0.0
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if Global.state == Global.State.PAUSED:
 		return
 	# Get the input direction and handle the accesleration/deceleration.

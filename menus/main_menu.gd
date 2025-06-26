@@ -2,7 +2,7 @@ class_name Menu extends Control
 
 
 func _on_play_button_down() -> void:
-	Global.play_level()
+	Global.play_cutscene()
 
 
 func _on_options_button_down() -> void:

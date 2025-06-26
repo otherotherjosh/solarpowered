@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvh7pko3vycvx"]
+[gd_scene load_steps=8 format=3 uid="uid://dvh7pko3vycvx"]
 
 [ext_resource type="Script" uid="uid://dgvilqvbx2dra" path="res://game/game.gd" id="1_l8g03"]
 [ext_resource type="Script" path="res://rooms/room_generation_test_tool.gd" id="1_y36n6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://rooms/room_generator.gd" id="3_j8tme"]
 [ext_resource type="PackedScene" path="res://player/player.tscn" id="5_dakft"]
 [ext_resource type="PackedScene" path="res://player/player_camera.tscn" id="5_qf6n1"]
+[ext_resource type="PackedScene" uid="uid://x8jmis22lkyk" path="res://menus/pause_menu.tscn" id="7_u5opy"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_l8g03")
@@ -26,5 +27,10 @@ squares_max = 30
 [node name="Player" parent="." instance=ExtResource("5_dakft")]
 
 [node name="PlayerCamera" parent="Player" instance=ExtResource("5_qf6n1")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_u5opy")]
+visible = false
 
 [connection signal="on_room_enter" from="RoomManager" to="." method="_on_room_manager_room_enter"]

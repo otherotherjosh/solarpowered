@@ -13,6 +13,7 @@ signal on_state_changed(new_state: State)
 const ROOMS_SCENE := "res://game/game.tscn"
 const MENU_SCENE := "res://menus/main_menu.tscn"
 const PAUSE_SCENE := "res://menus/pause.tscn"
+const CUTSCENE_SCENE := "res://game/cutscene.tscn"
 
 var state: State:
 	set = _set_state
@@ -20,7 +21,8 @@ var state: State:
 
 func _ready() -> void:
 	#Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	main_menu()
+	#main_menu()
+	state = State.PLAYING
 	
 		
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,6 +37,10 @@ func handle_ui_cancel() -> void:
 			state = State.PLAYING
 		State.PLAYING:
 			state = State.PAUSED
+
+
+func play_cutscene() -> void:
+	get_tree().change_scene_to_file(CUTSCENE_SCENE)
 
 
 func play_level() -> void:
