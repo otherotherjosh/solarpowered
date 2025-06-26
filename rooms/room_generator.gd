@@ -151,6 +151,7 @@ func generate_walls(cells: Array[Vector2i], room: Room) -> void:
 	var exit_cells_tlbr := [
 			exit_cells_top, exit_cells_left, exit_cells_bottom, exit_cells_right]
 	for i in range(4):
+		room.exit_cells[i] = Vector2i.ZERO
 		if room.exits_tlbr[i]:
 			var cell_index = randi_range(0,  exit_cells_tlbr[i].size() - 1)
 			var exit_cell: Vector2i = exit_cells_tlbr[i][cell_index]

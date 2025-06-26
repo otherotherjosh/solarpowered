@@ -22,8 +22,8 @@ func enter_room(room_next: Room) -> void:
 	var entrance_tlbr := -1
 	if room_curr:
 		var direction := room_curr.coords - room_next.coords
-		room_generator.remove_child(room_curr)
 		room_curr.set_process(false)
+		room_generator.remove_child(room_curr)
 		# set which entrance to spawn player at
 		match direction:
 			Vector2i.UP:
@@ -35,7 +35,7 @@ func enter_room(room_next: Room) -> void:
 			Vector2i.RIGHT:
 				entrance_tlbr = 1
 	room_curr = room_next
-	room_generator.add_child(room_curr)
-	room_curr.set_process(true)
 	if entrance_tlbr != -1:
 		on_room_enter.emit(entrance_tlbr)
+	room_curr.set_process(true)
+	room_generator.add_child(room_curr)
