@@ -1,7 +1,7 @@
 extends Control
 
 
-@onready var video_stream_player: VideoStreamPlayer = $VideoStreamPlayer
+@export var video_stream_player: VideoStreamPlayer
 
 
 # Called when the node enters the scene tree for the first time.
