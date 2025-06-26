@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://dte57ubbjon6l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nlmxd"]
-size = Vector2(16, 16)
+size = Vector2(64, 64)
 
 [node name="Exit" type="Area2D"]
 

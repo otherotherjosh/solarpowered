@@ -3,7 +3,6 @@ class_name RoomManager extends Node2D
 
 var rooms := {}
 var room_curr: Room
-var directions: Array[Vector2i] = [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
 
 @onready var room_generator: RoomGenerator = $RoomGenerator
 

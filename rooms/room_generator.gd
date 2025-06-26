@@ -13,6 +13,8 @@ const BOTTOM_CENTER_TILE := Vector2i(1, 2)
 const BOTTOM_RIGHT_TILE := Vector2i(2, 2)
 const ROOM = preload("res://rooms/room.tscn")
 const EXIT = preload("res://rooms/exit.tscn")
+const DIRECTIONS_TLBR: Array[Vector2i] = [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
+
 
 @export var square_min_size := 3
 @export var square_max_size := 10
@@ -38,10 +40,11 @@ func generate_room(coords: Vector2i, exits_tlbr: Array[int] = []) -> Room:
 	return room
 
 
+## returns array of top-left-bottom-right info for generating exits
 func generate_exits_tlbr(coords: Vector2i) -> Array[int]:
 	var exits_tlbr := [0, 0, 0, 0]
 	for i in range(4):
-		var neighbor_coords := coords + room_manager.directions[i]
+		var neighbor_coords := coords + DIRECTIONS_TLBR[i]
 		# generate mandatory exits 
 		# i.e. there is already a room in that direction with a corresponding entrance
 		if room_manager.rooms.has(neighbor_coords):
@@ -52,8 +55,6 @@ func generate_exits_tlbr(coords: Vector2i) -> Array[int]:
 		else:
 			exits_tlbr[i] = (randf() <= exit_spawn_chance) as int
 	return exits_tlbr
-		
-	
 
 
 ## lays down a bunch of squares as MIDDLE_CENTER_TILE
@@ -100,9 +101,8 @@ func generate_walls(cells: Array[Vector2i], room: Room) -> void:
 	
 	for cell in cells:
 		var neighbors_tlbr: Array[int] = [0, 0, 0, 0]
-		var directions_tlbr := [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
 		for i in range(4):
-			neighbors_tlbr[i] = (cells.has(cell + directions_tlbr[i])) as int
+			neighbors_tlbr[i] = (cells.has(cell + DIRECTIONS_TLBR[i])) as int
 			
 		match neighbors_tlbr:
 			[0, 0, 1, 1]:
@@ -152,6 +152,11 @@ func generate_walls(cells: Array[Vector2i], room: Room) -> void:
 			var cell_index = randi_range(0,  exit_cells_tlbr[i].size() - 1)
 			var exit_cell: Vector2i = exit_cells_tlbr[i][cell_index]
 			room.tile_map_layer.set_cell(exit_cell, 1, MIDDLE_CENTER_TILE)
+			# place exit trigger outside exit
+			var exit: Area2D = EXIT.instantiate()
+			room.add_child(exit)
+			var local_pos := room.tile_map_layer.map_to_local(exit_cell + DIRECTIONS_TLBR[i])
+			exit.global_position = room.tile_map_layer.to_global(local_pos)
 
 
 ## its a square
