@@ -33,22 +33,25 @@ func generate_room(coords: Vector2i, exits_tlbr: Array[int] = []) -> Room:
 	add_child(room)
 	room.exits_tlbr = exits_tlbr
 	room.tile_map_layer.clear()
+	room.coords = coords
 	var square_count := randi_range(squares_min, squares_max)
 	generate_square_floor(square_count, room)
 	var cells := room.tile_map_layer.get_used_cells()
 	generate_walls(cells, room)
+	remove_child(room)
 	return room
 
 
 ## returns array of top-left-bottom-right info for generating exits
 func generate_exits_tlbr(coords: Vector2i) -> Array[int]:
-	var exits_tlbr := [0, 0, 0, 0]
+	var exits_tlbr: Array[int] = [0, 0, 0, 0]
 	for i in range(4):
 		var neighbor_coords := coords + DIRECTIONS_TLBR[i]
 		# generate mandatory exits 
 		# i.e. there is already a room in that direction with a corresponding entrance
-		if room_manager.rooms.has(neighbor_coords):
-			var neighbor: Room = room_manager.rooms[neighbor_coords]
+		var filtered := room_manager.rooms.filter(func(r: Room): return r.coords == coords)
+		if filtered.size():
+			var neighbor: Room = filtered[0]
 			# generate exit on opposite side of neighbor exit
 			exits_tlbr[i] = neighbor.exits_tlbr[(i + 2) % 4]
 		# generate random exit, leading to a yet to be generated room
@@ -151,12 +154,16 @@ func generate_walls(cells: Array[Vector2i], room: Room) -> void:
 		if room.exits_tlbr[i]:
 			var cell_index = randi_range(0,  exit_cells_tlbr[i].size() - 1)
 			var exit_cell: Vector2i = exit_cells_tlbr[i][cell_index]
+			room.exit_cells[i] = exit_cell
 			room.tile_map_layer.set_cell(exit_cell, 1, MIDDLE_CENTER_TILE)
 			# place exit trigger outside exit
 			var exit: Area2D = EXIT.instantiate()
 			room.add_child(exit)
 			var local_pos := room.tile_map_layer.map_to_local(exit_cell + DIRECTIONS_TLBR[i])
 			exit.global_position = room.tile_map_layer.to_global(local_pos)
+			exit.body_entered.connect(func (body: Node2D):
+				if body is Player: 
+					room_manager.enter_room_at_coords(room.coords + DIRECTIONS_TLBR[i]))
 
 
 ## its a square

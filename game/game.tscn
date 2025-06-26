@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvh7pko3vycvx"]
+
+[ext_resource type="Script" uid="uid://dgvilqvbx2dra" path="res://game/game.gd" id="1_l8g03"]
+[ext_resource type="Script" uid="uid://dmhyecafctb65" path="res://rooms/room_generation_test_tool.gd" id="1_y36n6"]
+[ext_resource type="Script" uid="uid://cpujcitvusvwp" path="res://rooms/room_manager.gd" id="2_l8g03"]
+[ext_resource type="Script" uid="uid://bgstxvvce802o" path="res://rooms/room_generator.gd" id="3_j8tme"]
+[ext_resource type="PackedScene" uid="uid://dmv4m2y1qg8yb" path="res://player/player.tscn" id="4_3vho3"]
+[ext_resource type="PackedScene" uid="uid://1ob2h4uucfem" path="res://player/player_camera.tscn" id="5_qf6n1"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_l8g03")
+
+[node name="RoomGenerationTestTool" type="Node" parent="." node_paths=PackedStringArray("room_generator")]
+script = ExtResource("1_y36n6")
+room_generator = NodePath("../RoomManager/RoomGenerator")
+
+[node name="RoomManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_l8g03")
+
+[node name="RoomGenerator" type="Node2D" parent="RoomManager"]
+script = ExtResource("3_j8tme")
+square_max_size = 6
+squares_max = 30
+
+[node name="Player" parent="." instance=ExtResource("4_3vho3")]
+position = Vector2(-134, -35)
+
+[node name="PlayerCamera" parent="Player" instance=ExtResource("5_qf6n1")]
+
+[connection signal="on_room_enter" from="RoomManager" to="." method="_on_room_manager_room_enter"]
