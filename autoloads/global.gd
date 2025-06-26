@@ -10,7 +10,7 @@ enum State {
 
 signal on_state_changed(new_state: State)
 
-const ROOMS_SCENE := "res://rooms/rooms.tscn"
+const ROOMS_SCENE := "res://game/game.tscn"
 const MENU_SCENE := "res://menus/main_menu.tscn"
 const PAUSE_SCENE := "res://menus/pause.tscn"
 

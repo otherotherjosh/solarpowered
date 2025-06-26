@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://1ob2h4uucfem"]
+[gd_scene load_steps=0 format=3 uid="uid://1ob2h4uucfem"]
 
 [node name="PlayerCamera" type="Camera2D"]
 position_smoothing_enabled = true
